@@ -6,3 +6,18 @@ pipelineJob('pipelineJob') {
         }
     }
 }
+pipelineJob("quantum-pay-job"){
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url 'https://github.com/mkhuselityhobeka/quantum-pay.git'
+                    }
+                    branch 'develop'
+                }
+
+            }
+        }
+    }
+}
