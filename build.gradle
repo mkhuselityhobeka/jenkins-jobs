@@ -25,7 +25,7 @@ if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows()){
 }
 
 def out = new ByteArrayOutputStream()
-process.wait(out,System.err)
+process.waitForProcessOutput(out, System.err)
 String dockerSockGroupId = out.toString().trim() //get group id
 String extraPrefix = DefaultNativePlatform.getCurrentOperatingSystem().isWindows() ? '/' : '' //set extra forward slash prefix for windows
 
