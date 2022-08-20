@@ -1,3 +1,4 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 plugins {
     id 'java'
     id 'base'
@@ -11,6 +12,22 @@ docker {
     name "${project.name}:${project.version}"
     files "plugins.txt", "seedJob.xml"
 }
+/**
+ * Check OS  and find out which group owns /var/run/docker.sock
+ */
+Process process
+if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows()){
+    process = "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock alpine stat -c %g /var/run/docker.sock\".execute()"
+}else if (DefaultNativePlatform.currentOperatingSystem.isLinux()){
+    process = "stat -c %g /var/run/docker.sock".execute()
+}else {
+    throw  new GradleException("Unsupported OS: Cannot find group of /var/run/docker.sock")
+}
+
+def out = new ByteArrayOutputStream()
+process.wait(out,System.err)
+String dockerSockGroupId = out.toString().trim() //get group id
+String extraPrefix = DefaultNativePlatform.getCurrentOperatingSystem().isWindows() ? '/' : '' //set extra forward slash prefix for windows
 
 dockerRun {
     name "${project.name}"
@@ -18,5 +35,6 @@ dockerRun {
     ports '8080:8080'
     clean true
     daemonize false
+    arguments '-v', "extraPrefix//var/run/docker.sock", '--group-add', dockerSockGroupId //mounting the/var/run/docker.sock to container
 }
 
