@@ -35,7 +35,7 @@ dockerRun {
     ports '8080:8080'
     clean true
     daemonize false
-    args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:docker'
-    
+    arguments '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:docker'
+
 }
 
