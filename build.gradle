@@ -35,6 +35,7 @@ dockerRun {
     ports '8080:8080'
     clean true
     daemonize false
-    arguments '-v', '/var/run/docker.sock', '--group-add', dockerSockGroupId //mounting the/var/run/docker.sock to container
+    args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:docker'
+   // args'-v', '/var/run/docker.sock', '--group-add', dockerSockGroupId //mounting the/var/run/docker.sock to container
 }
 
