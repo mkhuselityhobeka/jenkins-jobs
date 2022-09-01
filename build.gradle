@@ -36,6 +36,6 @@ dockerRun {
     clean true
     daemonize false
     args '-v /var/run/docker.sock:/var/run/docker.sock -u jenkins:docker'
-   // args'-v', '/var/run/docker.sock', '--group-add', dockerSockGroupId //mounting the/var/run/docker.sock to container
+    
 }
 
