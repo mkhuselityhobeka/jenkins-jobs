@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts-jdk11
 
 USER root
 RUN curl -sSL https://get.docker.com/ | sh
-RUN sudo usermod -a -G docker jenkins
+RUN SUDO usermod -a -G docker jenkins
 USER jenkins
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
