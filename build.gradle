@@ -36,6 +36,6 @@ dockerRun {
     clean true
     daemonize false
     arguments '-v', '/var/run/docker.sock', '--group-add', dockerSockGroupId //mounting the/var/run/docker.sock to container
-    groupmod -g dockerSockGroupId docker
+   
 }
 
