@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts-jdk11
 
 USER root
 RUN curl -sSL https://get.docker.com/ | sh
-RUN sudo usermod -a -G docker jenkins
+RUN usermod -a -G docker jenkins
 RUN chmod 777 /var/run/docker.sock
 RUN chown root:jenkins /var/run/docker.sock
 USER jenkins
